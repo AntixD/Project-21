@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import Card from "./components/Card/Card";
+import { mockData } from "./MockData";
 
 type EventData = {
   id: number;
@@ -18,37 +19,30 @@ type EventData = {
   description: string;
   eventImages: ImageSourcePropType[];
 };
+
 const Home = () => {
   const [data, setData] = useState<EventData[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/api/mockdata");
-      setData(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await axios.get("http://localhost:5000/api/mockdata");
+  //     setData(response.data);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return (
-      <View style={styles.centered}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.homeCard}>
-        {data.map((item) => (
+        {mockData.map((item) => (
           <Card key={item.id} {...item} />
         ))}
       </View>
